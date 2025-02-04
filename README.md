@@ -18,3 +18,57 @@ To run this project, you need the following software:
 - Docker
 - Docker Compose
 - Python 3.10 or higher
+
+## Setup & Run
+
+### **Run the Project**
+
+```bash
+docker-compose up --build
+```
+
+This will start:
+
+- **PostgreSQL** database container.
+- **FastAPI** server on **port 8000**.
+
+### **Access API Documentation**
+
+- **Swagger UI:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **ReDoc:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+### **Stop the Project**
+
+```bash
+docker-compose down
+```
+
+### **Edit Code**
+
+Stop the containers (`docker-compose down`), then modify files like **`main.py`**, **`models.py`**, or **`database.py`**.
+
+### **Restart After Changes**
+
+```bash
+docker-compose up --build
+```
+
+## **Additional Commands**
+
+**Check running containers**:
+
+```bash
+docker ps
+```
+
+**View logs**:
+
+```bash
+docker-compose logs -f
+```
+
+**Access PostgreSQL inside Docker**:
+
+```bash
+docker exec -it postgres_db psql -U admin -d restaurant
+```
