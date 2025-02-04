@@ -22,3 +22,4 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     token = Column(String, nullable=False)
     reservations = relationship("Reservation")
+    # TODO: add expiry date for token

@@ -39,7 +39,7 @@ services:
     environment:
       DATABASE_URL: postgresql://test_user:test_password@db:5431/test_db
     depends_on:
-      - db
+      - db-test
     command: ["pytest", "test_main.py"]
 
 volumes:

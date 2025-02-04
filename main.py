@@ -74,7 +74,7 @@ def book_table(request: BookingRequest, db: Session = Depends(get_db), user_id: 
 def cancel_reservation(request: CancelRequest, db: Session = Depends(get_db), user_id: int = Depends(get_current_user)):
     reservation = db.query(models.Reservation).filter(models.Reservation.id == request.reservation_id, models.Reservation.user_id == user_id).first()
     if not reservation:
-        raise HTTPException(status_code=400, detail="Reservation not found or unauthorized.")
+        raise HTTPException(status_code=400, detail="Reservation not found.")
     table = db.query(models.Table).filter(models.Table.id == reservation.table_id).first()
     db.delete(reservation)
     db.commit()

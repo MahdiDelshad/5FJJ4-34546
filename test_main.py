@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -11,14 +10,6 @@ SQLALCHEMY_DATABASE_URL = "postgresql://test_user:test_password@db:5432/test_db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base.metadata.create_all(bind=engine)
-
-@pytest.fixture(scope="module")
-def test_db():
-    SessionLocal.configure(bind=engine)
-    Base.metadata.create_all(bind=engine)
-    session = SessionLocal()
-    yield session
-    session.close()
 
 def override_get_db():
     db = TestingSessionLocal()
@@ -71,4 +62,4 @@ def test_cancel_reservation():
     assert cancel_response.json() == {"message": "Reservation canceled."}
     cancel_response = client.post("/cancel", json={"reservation_id": reservation_id}, headers=headers)
     assert cancel_response.status_code == 400
-    assert cancel_response.json() == {"detail": "Reservation not found or unauthorized."}
+    assert cancel_response.json() == {"detail": "Reservation not found."}
